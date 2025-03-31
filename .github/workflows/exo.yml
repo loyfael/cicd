@@ -1,0 +1,46 @@
+name: CI/CD Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v3
+
+      - name: 🧰 Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🧪 Run tests
+        run: npm run test:ci
+
+  deploy:
+    name: Deploy App
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - name: 🚀 Deploy based on branch
+        run: |
+          if [[ "${{ github.ref_name }}" == "dev" ]]; then
+            echo "🚀 Deploying to DEVELOPMENT environment"
+            # Place development deployment commands here
+          elif [[ "${{ github.ref_name }}" == "main" ]]; then
+            echo "🚀 Deploying to PRODUCTION environment"
+            # Place production deployment commands here
+          else
+            echo "❌ Unsupported branch"
+            exit 1
+          fi

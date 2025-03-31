@@ -1,0 +1,11 @@
+name: expressions
+on: push
+
+
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+    - run: echo main = top ? ${{ 'main' == ${ github.ref } }} # true
+    - run: echo la branche actuelle contient elle main ? ${{ 'main' == ${ github.ref, 'main' } }} # false
+    - run: exit 1
+    - run: echo STEP 1

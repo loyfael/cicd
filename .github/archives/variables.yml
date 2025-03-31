@@ -11,7 +11,10 @@ jobs:
       - name: les variables
         env:
           VAR_FROM_STEP: "var from step"
+          VAR_FROM_WORKFLOW: "En fait je viens du step"
         run: |
           echo "VAR_FROM_JOB: $VAR_FROM_JOB"
           echo "VAR_FROM_STEP: $VAR_FROM_STEP"
           echo "VAR_FROM_ENV: $VAR_FROM_ENV"
+          echo "Variable de projet: $VAR_PROJECT"
+          echo "Secret de projet: $SECRET_PROJECT"
