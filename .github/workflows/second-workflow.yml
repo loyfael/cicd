@@ -1,0 +1,32 @@
+name: File Manipulation Workflow
+
+on:
+  push:
+
+jobs:
+  create-file:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: Verify current user
+        run: whoami
+      - name: Create directory
+        run: mkdir my_directory
+      - name: Create a text file in the directory
+        run: echo "This is a test file" > my_directory/test_file.txt
+      - name: List files at the root
+        run: ls -la
+      - name: List files in the created directory
+        run: ls -la my_directory
+
+  verify-file:
+    runs-on: ubuntu-latest
+    needs: create-file
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+      - name: List files at the root
+        run: ls -la
+      - name: List files in the created directory
+        run: ls -la my_directory
