@@ -7,4 +7,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Hello, world"
-    
+
+  job2:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Display workplace
+        run: pwd
+      - run: echo "second step"
+      - run: ls    
