@@ -1,0 +1,17 @@
+name: name
+
+on: push
+
+jobs:
+  tests-variable:
+    env:
+      VAR_FROM_JOB: "var from job"
+    runs-on: ubuntu-latest
+    steps:
+      - name: les variables
+        env:
+          VAR_FROM_STEP: "var from step"
+        run: |
+          echo "VAR_FROM_JOB: $VAR_FROM_JOB"
+          echo "VAR_FROM_STEP: $VAR_FROM_STEP"
+          echo "VAR_FROM_ENV: $VAR_FROM_ENV"
