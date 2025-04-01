@@ -1,38 +1,54 @@
-# CI/CD Learning Repository
+# React + TypeScript + Vite
 
-This repository is dedicated to exploring and understanding Continuous Integration (CI) and Continuous Deployment (CD) practices. It serves as a hands-on platform for experimenting with CI/CD pipelines, emphasizing the automation of software development workflows.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Objectives
+Currently, two official plugins are available:
 
-The primary goals of this project are to:
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-- **Explore Tools and Technologies**: Investigate various tools associated with CI/CD pipelines.&#8203;:contentReference[oaicite:0]{index=0}
-- **Understand CI/CD Processes**: :contentReference[oaicite:1]{index=1}&#8203;:contentReference[oaicite:2]{index=2}
-- **Automate Development Tasks**: :contentReference[oaicite:3]{index=3}&#8203;:contentReference[oaicite:4]{index=4}
+## Expanding the ESLint configuration
 
-## Contents
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-This repository includes:
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-- **Configuration Files**: :contentReference[oaicite:5]{index=5}&#8203;:contentReference[oaicite:6]{index=6}
-- **Automation Scripts**: :contentReference[oaicite:7]{index=7}&#8203;:contentReference[oaicite:8]{index=8}
-- **Documentation**: :contentReference[oaicite:9]{index=9}&#8203;:contentReference[oaicite:10]{index=10}
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-## Recommended Resources
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-To further enhance your understanding of CI/CD, consider exploring the following resources:
-
-- [How to build a CI/CD pipeline with GitHub Actions in four simple steps](https://github.blog/enterprise-software/ci-cd/build-ci-cd-pipeline-github-actions-four-steps/): :contentReference[oaicite:11]{index=11} :contentReference[oaicite:12]{index=12}&#8203;:contentReference[oaicite:13]{index=13}
-- [MLOps GitHub Action With CI/CD Pipeline One Shot Tutorial](https://www.youtube.com/watch?v=ciqWMIf7Pz0): :contentReference[oaicite:14]{index=14}&#8203;:contentReference[oaicite:15]{index=15}
-
-## Contribution
-
-Contributions to this repository are welcome. If you wish to add examples, correct errors, or enhance the documentation, please feel free to submit a pull request.
-
-## License
-
-This project is licensed under the MIT License. For more details, please refer to the LICENSE file.
-
----
-
-:contentReference[oaicite:16]{index=16}&#8203;:contentReference[oaicite:17]{index=17}
+export default tseslint.config({
+  plugins: {
+    // Add the react-x and react-dom plugins
+    'react-x': reactX,
+    'react-dom': reactDom,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended typescript rules
+    ...reactX.configs['recommended-typescript'].rules,
+    ...reactDom.configs.recommended.rules,
+  },
+})
+```
