@@ -15,6 +15,9 @@ jobs:
       - name: 📥 Checkout repository
         uses: actions/checkout@v3
 
+      - name: 📂 Show current working directory
+        run: pwd
+
       - name: 🧰 Setup Node.js
         uses: actions/setup-node@v3
         with:
@@ -22,17 +25,21 @@ jobs:
 
       - name: 📦 Install dependencies
         run: npm install
+        working-directory: ./
 
       - name: 🔍 Check package.json exists
         run: |
           ls -la
           cat package.json
+        working-directory: ./
 
       - name: 🧪 Show available npm scripts
         run: npm run
+        working-directory: ./
 
       - name: 🧪 Run tests
         run: npm run test:ci
+        working-directory: ./
 
   deploy:
     name: Deploy App
@@ -44,10 +51,8 @@ jobs:
         run: |
           if [[ "${{ github.ref_name }}" == "dev" ]]; then
             echo "🚀 Deploying to DEVELOPMENT environment"
-            # Place development deployment commands here
           elif [[ "${{ github.ref_name }}" == "main" ]]; then
             echo "🚀 Deploying to PRODUCTION environment"
-            # Place production deployment commands here
           else
             echo "❌ Unsupported branch"
             exit 1
