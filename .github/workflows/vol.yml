@@ -1,0 +1,71 @@
+name: Enquête Policière - SuperPrix
+
+on:
+  push:
+
+jobs:
+  policier-scene:
+    name: 👮 Policier - Scène de crime
+    runs-on: ubuntu-latest
+    outputs:
+      empreinte: "empreinte trouvée sur la caisse"
+    steps:
+      - name: 🔍 Examen de la scène
+        run: |
+          echo "Le policier examine la caisse enregistreuse"
+          echo "Empreinte prélevée sur la caisse"
+
+  policier-video:
+    name: 🎥 Policier - Caméras de surveillance
+    runs-on: ubuntu-latest
+    outputs:
+      video: ${{ steps.capture.outputs.resultat }}
+    steps:
+      - name: 📹 Récupération des vidéos
+        id: capture
+        run: echo "resultat=Séquence vidéo 22h15-22h45 récupérée" >> $GITHUB_OUTPUT
+
+  detective:
+    name: 🕵️ Détective
+    runs-on: ubuntu-latest
+    needs: [policier-scene, policier-video]
+    outputs:
+      rapport: ${{ steps.rapport_final.outputs.conclusion }}
+      lieu_arrestation: ${{ steps.rapport_final.outputs.lieu }}
+      autorisation_arrestation: ${{ steps.rapport_final.outputs.autorisation }}
+    steps:
+      - name: 📂 Analyse des indices
+        run: |
+          echo "Empreinte : ${{ needs.policier-scene.outputs.empreinte }}"
+          echo "Vidéo : ${{ needs.policier-video.outputs.video }}"
+
+      - name: 🧬 Interprétation des indices
+        run: |
+          echo "ANALYSE_EMPREINTE=Empreinte correspond à un suspect connu" >> $GITHUB_ENV
+          echo "ANALYSE_VIDEO=Suspect identifié sur la vidéo à 22h30" >> $GITHUB_ENV
+
+      - name: 📝 Rapport final
+        id: rapport_final
+        run: |
+          echo "conclusion=${ANALYSE_EMPREINTE}, ${ANALYSE_VIDEO}, suspect identifié" >> $GITHUB_OUTPUT
+          echo "lieu=42 Avenue du Commerce, Supermarché SuperPrix" >> $GITHUB_OUTPUT
+          echo "autorisation=true" >> $GITHUB_OUTPUT
+
+  police:
+    name: 🚔 Équipe d'intervention
+    runs-on: ubuntu-latest
+    needs: detective
+    steps:
+      - name: 🗂️ Lecture du rapport
+        run: |
+          echo "🧾 Rapport : ${{ needs.detective.outputs.rapport }}"
+          echo "📍 Lieu : ${{ needs.detective.outputs.lieu_arrestation }}"
+          echo "✅ Autorisation : ${{ needs.detective.outputs.autorisation_arrestation }}"
+
+      - name: 🚫 Enquête sans suite
+        if: ${{ needs.detective.outputs.autorisation_arrestation != 'true' }}
+        run: echo "Aucune arrestation possible. Enquête classée."
+
+      - name: 👮‍♂️ Arrestation en cours
+        if: ${{ needs.detective.outputs.autorisation_arrestation == 'true' }}
+        run: echo "Intervention au 42 Avenue du Commerce. Suspect arrêté."
