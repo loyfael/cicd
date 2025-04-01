@@ -23,6 +23,14 @@ jobs:
       - name: 📦 Install dependencies
         run: npm install
 
+      - name: 🔍 Check package.json exists
+        run: |
+          ls -la
+          cat package.json
+
+      - name: 🧪 Show available npm scripts
+        run: npm run
+
       - name: 🧪 Run tests
         run: npm run test:ci
 
