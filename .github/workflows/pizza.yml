@@ -29,7 +29,8 @@ jobs:
         run: |
           echo "Client: ${{ github.event.inputs.nom_client }}"
           echo "Commandes: ${{ github.event.inputs.pizzas }}"
-          echo "pizzas=${{ github.event.inputs.pizzas }}" >> $GITHUB_OUTPUT
+          echo '${{ github.event.inputs.pizzas }}' > pizzas.json
+          echo "pizzas=$(cat pizzas.json)" >> $GITHUB_OUTPUT
 
   cuisine:
     name: Cuisine
