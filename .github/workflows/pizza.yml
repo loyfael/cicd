@@ -51,7 +51,9 @@ jobs:
   livraison:
     name: Livraison
     runs-on: ubuntu-latest
-    needs: cuisine
+    needs: 
+      - cuisine
+      - reception-commande
     concurrency:
       group: livraison
       cancel-in-progress: true
@@ -59,7 +61,8 @@ jobs:
       - name: Livraison
         run: |
           echo "Préparation de la livraison pour ${{ github.event.inputs.nom_client }}"
-          echo "Les pizzas à livrer sont : ${{ github.event.inputs.pizzas }}"
+          echo "Les pizzas à livrer sont : ${{ needs.reception-commande.outputs.pizzas }}"
+      
 
   reclamation:
     name: Gestion des réclamations
