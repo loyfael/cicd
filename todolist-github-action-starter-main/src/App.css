@@ -1,0 +1,180 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+.app {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.todo-list {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #333;
+  text-align: left;
+}
+
+.todo-list h1 {
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+.add-todo {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.add-todo input {
+  flex: 1;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #646cff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #535bf2;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  background-color: rgba(100, 108, 255, 0.05);
+  border: 1px solid rgba(100, 108, 255, 0.1);
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+li:hover {
+  background-color: rgba(100, 108, 255, 0.08);
+}
+
+li input[type="checkbox"]:checked + span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+li input[type="checkbox"]:checked ~ span {
+  text-decoration: line-through;
+  color: #888;
+}
+
+li input[type="checkbox"]:checked {
+  background-color: #646cff;
+  border-color: #646cff;
+}
+
+li input[type="checkbox"]:checked + span + button {
+  opacity: 0.7;
+}
+
+li span {
+  flex: 1;
+  color: #333;
+  text-align: left;
+  padding: 0.25rem 0;
+}
+
+li button {
+  background: none;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: opacity 0.2s;
+}
+
+li button:hover {
+  opacity: 0.8;
+}
+
+.todos-form {
+  margin-top: 1rem;
+}
+
+.todos-form ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.delete-button {
+  padding: 0.25rem 0.5rem;
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.delete-button:hover {
+  opacity: 1;
+}
